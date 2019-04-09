@@ -1,0 +1,44 @@
+.book{
+    cursor: pointer;
+}
+
+.book .card-body{
+    display: flex;
+    padding: 0.3rem;
+}
+
+.book .book-image-container{
+    display: flex;
+    align-items: center;
+    width: 64px;
+    min-width: 64px;
+    margin-right: 1rem;
+}
+
+.book .book-image{
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.book .book-info-container{
+    width: 100%;
+}
+
+.book .close{
+    margin-left: 0.2rem;
+}
+
+.book .list-group {
+    margin: 1rem 0 0 1rem;
+    font-size: 0.85rem;
+}
+
+.book .list-group-item {
+    padding: .1rem;
+    border: none;
+}
+
+.book .list-group-item .term {
+    margin-right: .5rem;
+}

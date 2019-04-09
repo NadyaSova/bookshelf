@@ -1,0 +1,12 @@
+.selected-books{
+    border-style: solid;
+    padding:1rem;
+}
+
+.selected-books-header{
+    text-align: center;
+}
+
+.generate-link{
+    text-align: center;
+}
