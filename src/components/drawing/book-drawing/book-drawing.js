@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Text, Label, Tag } from 'react-konva';
+import Konva from 'konva';
+
+import { maxFontSize, minFontSize } from '../../../helpers/drawing-constants';
 
 export default class BookDrawing extends Component {
 
@@ -9,31 +12,52 @@ export default class BookDrawing extends Component {
             this.label.rotate(-90);
     }
 
+    adjustFontSize(fontSize) {
+        if (fontSize < minFontSize)
+            return fontSize;
+
+        const { title, width: bookWidth, height: bookHeight } = this.props;
+
+        //todo: get this element and <Text> settings from the same place
+        const element = new Konva.Text({
+            text: title,
+            fontFamily: 'Calibri',
+            fontSize: fontSize,
+            padding: 5,
+            fill: 'black',
+            wrap: 'word',
+            align: 'center',
+            width: bookHeight
+        });
+        const elementHeight = element.height();
+
+        if (elementHeight <= bookWidth)
+            return fontSize;
+
+        return this.adjustFontSize(fontSize - 1);
+    }
+
     render() {
+        const fontSize = this.adjustFontSize(maxFontSize);
         const { title, x, y, width: bookWidth, height: bookHeight } = this.props;
+
         return (
-            <React.Fragment>
-                <Label
-                    x={x}
-                    y={y}
-                    ref={ref => (this.label = ref)}>
+            <Label x={x}
+                y={y}
+                ref={ref => (this.label = ref)}>
 
-                    <Tag
-                        stroke={'black'} />
+                <Tag stroke={'brown'} />
 
-                    <Text
-                        text={title}
-                        fontFamily='Calibri'
-                        fontSize={18}
-                        padding={5}
-                        fill='black'
-                        wrap='word'
-                        align='center'
-                        height={bookWidth}
-                        width={bookHeight}
-                    ></Text>
-                </Label>
-            </React.Fragment>
+                <Text text={title}
+                    fontFamily='Calibri'
+                    fontSize={fontSize}
+                    padding={5}
+                    fill='black'
+                    wrap='word'
+                    align='center'
+                    height={bookWidth}
+                    width={bookHeight} />
+            </Label>
         );
     }
 }

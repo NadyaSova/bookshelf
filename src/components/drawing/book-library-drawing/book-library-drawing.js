@@ -2,10 +2,10 @@ import React from 'react';
 import { Stage, Layer } from 'react-konva';
 
 import BookShelfDrawing from '../book-shelf-drawing';
-import { shelfHeight } from '../../../helpers/drawing-constants'; //todo:move to drawing
+import { pileMargin, shelfHeight, maxBookHeight } from '../../../helpers/drawing-constants'; //todo:move to drawing
 import { bookSizesGenerator, pilesGenerator } from '../../../helpers';
 
-const BookLibraryDrawing = ({ books, y }) => {
+const BookLibraryDrawing = ({ books }) => {
     if (!books || books.length === 0) {
         return null;
     }
@@ -14,11 +14,11 @@ const BookLibraryDrawing = ({ books, y }) => {
     console.log('Drawing books', booksWithSizes);
 
 
-    const maxWidth = 700;//window.innerWidth - pileMargin;
+    const maxWidth = 700;// window.innerWidth - pileMargin;
     const shelves = pilesGenerator(booksWithSizes, maxWidth);
     console.log('Shelves', shelves);
 
-    var shelfY = y;
+    var shelfY = maxBookHeight + pileMargin;
     return (
         <Stage width={window.innerWidth} height={window.innerHeight}>
             <Layer>

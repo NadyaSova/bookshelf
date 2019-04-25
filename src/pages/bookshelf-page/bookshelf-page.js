@@ -12,7 +12,7 @@ class BookshelfPage extends Component {
             <Fragment>
                 <h2>Bookshelf</h2>
                 <Link to='/' className='btn btn-secondary'>Back to books select</Link>
-                <BookLibraryDrawing books={selectedBooks} y={220} />
+                <BookLibraryDrawing books={selectedBooks} />
             </Fragment>
         );
     }

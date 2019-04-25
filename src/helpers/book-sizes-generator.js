@@ -1,10 +1,7 @@
-const minWidth = 30;
-const maxWidth = 60;
+import { minBookHeight, maxBookHeight, minBookWidth, maxBookWidth } from './drawing-constants';
+
 const widthToPageCountRatio = 0.08;
 const maxPageCountForMinWith = 80;
-
-const minHeight = 150;
-const maxHeight = 200;
 
 
 const bookSizesGenerator = (arrBooks) => {
@@ -14,7 +11,7 @@ const bookSizesGenerator = (arrBooks) => {
     return arrBooks.map((book) => {
         return {
             id: book.id,
-            title: book.title,
+            title: getFullTitle(book),
             width: widthForPageCount(book.pageCount),
             height: randomHeight()
         };
@@ -22,12 +19,12 @@ const bookSizesGenerator = (arrBooks) => {
 };
 
 function widthForPageCount(pageCount) {
-    var width = minWidth;
+    var width = minBookWidth;
 
     if (pageCount > maxPageCountForMinWith) {
         width += (pageCount - maxPageCountForMinWith) * widthToPageCountRatio;
-        if (width >= maxWidth)
-            width = maxWidth;
+        if (width >= maxBookWidth)
+            width = maxBookWidth;
         else
             width = Math.floor(width);
     }
@@ -35,7 +32,15 @@ function widthForPageCount(pageCount) {
 }
 
 function randomHeight() {
-    return minHeight + Math.floor(Math.random() * (maxHeight - minHeight));
+    return minBookHeight + Math.floor(Math.random() * (maxBookHeight - minBookHeight));
+}
+
+function getFullTitle(book) {
+    if (!book.authors)
+        return book.title;
+
+    const authorsString = book.authors.reduce((prev, cur) => { return prev + ', ' + cur });
+    return authorsString + '\n' + book.title;
 }
 
 export default bookSizesGenerator;
