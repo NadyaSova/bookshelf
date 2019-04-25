@@ -1,19 +1,24 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import BookLibraryDrawing from '../../components/drawing/book-library-drawing';
+
+import './bookshelf-page.css';
 
 class BookshelfPage extends Component {
     render() {
         const { selectedBooks } = this.props;
 
         return (
-            <Fragment>
-                <h2>Bookshelf</h2>
-                <Link to='/' className='btn btn-secondary'>Back to books select</Link>
+            <div className='container-fluid'>
+                <Link to='/' className='btn btn-link'>
+                    <i className="fas fa-angle-double-left mr-1"></i>
+                    Back to books select
+                </Link>
+                <h2 className="ml-4">Bookshelf</h2>
                 <BookLibraryDrawing books={selectedBooks} />
-            </Fragment>
+            </div>
         );
     }
 }

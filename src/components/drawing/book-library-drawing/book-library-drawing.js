@@ -11,15 +11,14 @@ const BookLibraryDrawing = ({ books }) => {
     }
     
     const booksWithSizes = bookSizesGenerator(books);
-    console.log('Drawing books', booksWithSizes);
-
-
-    const maxWidth = 700;// window.innerWidth - pileMargin;
+    const drawingWidth = window.innerWidth - 40;
+    const maxWidth = drawingWidth - pileMargin;
     const shelves = pilesGenerator(booksWithSizes, maxWidth);
+    const drawingHeight = shelves.length * shelfHeight + 10;
 
     var shelfY = maxBookHeight + pileMargin;
     return (
-        <Stage width={window.innerWidth} height={window.innerHeight}>
+        <Stage width={drawingWidth} height={drawingHeight}>
             <Layer>
                 {
                     shelves.map(shelf => {

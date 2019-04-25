@@ -13,9 +13,7 @@ function pilesGenerator(books, maxWidth) {
         var shelf = generateShelf(books.slice(booksCount), maxWidth);
         shelves.push(shelf.piles);
         booksCount += shelf.booksCount;
-        console.log('Generated shelf', shelf, 'books count', booksCount);
     }
-    console.log('Shelves:', shelves);
     return shelves;
 }
 
@@ -51,10 +49,13 @@ function VerticalPileGenerator(books, maxPileWidth) {
 
     var booksInPile = [];
 
-    for (var i = 0, width = 0; i < booksInPileCount && width < maxPileWidth; i++) {
+    for (var i = 0, width = 0; i < booksInPileCount; i++) {
         const book = books[i];
-        booksInPile.push(book);
+        if (width + book.width >= maxPileWidth)
+            break;
+
         width += book.width;
+        booksInPile.push(book);
     }
 
     return { books: booksInPile, width, vertical: true };
