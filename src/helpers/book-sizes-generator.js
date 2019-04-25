@@ -11,7 +11,8 @@ const bookSizesGenerator = (arrBooks) => {
     return arrBooks.map((book) => {
         return {
             id: book.id,
-            title: getFullTitle(book),
+            title: book.title,
+            authors: getBookAuthors(book),
             width: widthForPageCount(book.pageCount),
             height: randomHeight()
         };
@@ -35,12 +36,10 @@ function randomHeight() {
     return minBookHeight + Math.floor(Math.random() * (maxBookHeight - minBookHeight));
 }
 
-function getFullTitle(book) {
+function getBookAuthors(book) {
     if (!book.authors)
-        return book.title;
-
-    const authorsString = book.authors.reduce((prev, cur) => { return prev + ', ' + cur });
-    return authorsString + '\n' + book.title;
+        return '';
+    return book.authors.reduce((prev, cur) => { return prev + ', ' + cur })
 }
 
 export default bookSizesGenerator;

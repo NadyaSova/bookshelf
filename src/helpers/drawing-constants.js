@@ -8,7 +8,7 @@ const minBookHeight = 180;
 const maxBookHeight = 250;
 
 const maxFontSize = 18;
-const minFontSize = 4;
+const minFontSize = 6;
 
 export {
     pileMargin,

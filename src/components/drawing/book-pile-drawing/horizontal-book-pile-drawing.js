@@ -11,6 +11,7 @@ const HorizontalBookPileDrawing = ({ books, x, y }) => {
         return (<BookDrawing
             key={book.id}
             title={book.title}
+            authors={book.authors}
             x={bookX}
             y={bookY}
             width={book.width}

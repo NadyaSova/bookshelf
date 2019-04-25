@@ -7,6 +7,7 @@ const VerticalBookPileDrawing = ({ books, x, y }) => {
         const res = (<BookDrawing
             key={book.id}
             title={book.title}
+            authors={book.authors}
             x={bookX}
             y={y}
             width={book.width}

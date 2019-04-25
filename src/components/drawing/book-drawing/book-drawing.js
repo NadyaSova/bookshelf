@@ -4,60 +4,104 @@ import Konva from 'konva';
 
 import { maxFontSize, minFontSize } from '../../../helpers/drawing-constants';
 
+const padding = 3;
+const basicTestSettings = {
+    padding: padding,
+    fill: 'black',
+    wrap: 'word',
+    align: 'center'
+};
+const authorsTextSettings = { ...basicTestSettings, fontFamily: 'Montserrat' };
+const titleTextSettings = { ...basicTestSettings, fontFamily: 'Alegreya SC', fontStyle: 'bolder' };
+
+
 export default class BookDrawing extends Component {
 
     componentDidMount() {
         const { vertical } = this.props;
-        if (vertical)
-            this.label.rotate(-90);
+        if (vertical) {
+            this.labelAuthors.rotate(-90);
+            this.labelTitle.rotate(-90);
+        }
+    }
+
+    authorsFontSize(titleFontSize) {
+        const fontSize = titleFontSize - 4;
+        return Math.max(fontSize, minFontSize);
     }
 
     adjustFontSize(fontSize) {
         if (fontSize < minFontSize)
             return fontSize;
 
-        const { title, width: bookWidth, height: bookHeight } = this.props;
+        const { title, authors, width: bookWidth, height: bookHeight } = this.props;
 
-        //todo: get this element and <Text> settings from the same place
-        const element = new Konva.Text({
-            text: title,
-            fontFamily: 'Calibri',
-            fontSize: fontSize,
-            padding: 5,
-            fill: 'black',
-            wrap: 'word',
-            align: 'center',
-            width: bookHeight
-        });
-        const elementHeight = element.height();
+        const titleElement = new Konva.Text(
+            {
+                text: title,
+                fontSize: fontSize,
+                width: bookHeight,
+                ...titleTextSettings
+            }
+        );
+        const authorsElement = new Konva.Text(
+            {
+                text: authors,
+                fontSize: this.authorsFontSize(fontSize),
+                width: bookHeight,
+                ...authorsTextSettings
+            }
+        );
+
+        const titleElementHeight = titleElement.height();
+        const authorsElementHeight = authorsElement.height();
+        const elementHeight = titleElementHeight + authorsElementHeight;
 
         if (elementHeight <= bookWidth)
-            return fontSize;
+            return { fontSize, authorsElementHeight };
 
         return this.adjustFontSize(fontSize - 1);
     }
 
     render() {
-        const fontSize = this.adjustFontSize(maxFontSize);
-        const { title, x, y, width: bookWidth, height: bookHeight } = this.props;
+        const { fontSize, authorsElementHeight } = this.adjustFontSize(maxFontSize);
+        const { title, authors, x, y, width: bookWidth, height: bookHeight, vertical } = this.props;
+
+        const yTitle = vertical ? y : y + authorsElementHeight;
+        const xTitle = vertical ? x + authorsElementHeight : x;
 
         return (
-            <Label x={x}
-                y={y}
-                ref={ref => (this.label = ref)}>
+            <React.Fragment>
 
-                <Tag stroke={'brown'} />
+                <Label x={x}
+                    y={y}
+                    ref={ref => (this.labelAuthors = ref)}>
 
-                <Text text={title}
-                    fontFamily='Calibri'
-                    fontSize={fontSize}
-                    padding={5}
-                    fill='black'
-                    wrap='word'
-                    align='center'
-                    height={bookWidth}
-                    width={bookHeight} />
-            </Label>
+                    <Tag stroke={'sienna'} />
+
+                    <Text
+                        fontSize={this.authorsFontSize(fontSize)}
+                        text={authors}
+                        height={bookWidth}
+                        width={bookHeight}
+                        {...authorsTextSettings}
+                    />
+                </Label>
+
+                <Label x={xTitle}
+                    y={yTitle}
+                    ref={ref => (this.labelTitle = ref)}>
+
+                    <Text
+                        fontSize={fontSize}
+                        text={title}
+                        height={bookWidth - authorsElementHeight}
+                        width={bookHeight}
+                        {...titleTextSettings}
+                    />
+                </Label>
+                
+            </React.Fragment>
         );
     }
 }

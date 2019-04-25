@@ -9,14 +9,13 @@ const BookLibraryDrawing = ({ books }) => {
     if (!books || books.length === 0) {
         return null;
     }
-
+    
     const booksWithSizes = bookSizesGenerator(books);
     console.log('Drawing books', booksWithSizes);
 
 
     const maxWidth = 700;// window.innerWidth - pileMargin;
     const shelves = pilesGenerator(booksWithSizes, maxWidth);
-    console.log('Shelves', shelves);
 
     var shelfY = maxBookHeight + pileMargin;
     return (
