@@ -1,9 +1,10 @@
 import React from 'react';
-import { Stage, Layer } from 'react-konva';
+import { Stage, Layer, Rect } from 'react-konva';
 
 import BookShelfDrawing from '../book-shelf-drawing';
-import { pileMargin, shelfHeight, maxBookHeight } from '../../../helpers/drawing-constants'; //todo:move to drawing
-import { bookSizesGenerator, pilesGenerator } from '../../../helpers';
+import BookLibraryBackground from '../book-library-background';
+import { pileMargin, shelfHeight, maxBookHeight, libraryVerticalPadding } from '../../../helpers/drawing-constants'; //todo:move to drawing
+import { bookSizesGenerator, pilesGenerator, getKanvasHeight, getKanvasWidth } from '../../../helpers';
 
 const BookLibraryDrawing = ({ books }) => {
     if (!books || books.length === 0) {
@@ -11,15 +12,18 @@ const BookLibraryDrawing = ({ books }) => {
     }
     
     const booksWithSizes = bookSizesGenerator(books);
-    const drawingWidth = window.innerWidth - 40;
-    const maxWidth = drawingWidth - pileMargin;
-    const shelves = pilesGenerator(booksWithSizes, maxWidth);
-    const drawingHeight = shelves.length * shelfHeight + 10;
 
-    var shelfY = maxBookHeight + pileMargin;
+    const kanvasWidth = getKanvasWidth();
+    const maxWidth = kanvasWidth - pileMargin;
+    const shelves = pilesGenerator(booksWithSizes, maxWidth);
+
+    const kanvasHeight = getKanvasHeight(shelves.length);
+
+    var shelfY = maxBookHeight + libraryVerticalPadding;
     return (
-        <Stage width={drawingWidth} height={drawingHeight}>
+        <Stage width={kanvasWidth} height={kanvasHeight}>
             <Layer>
+                <BookLibraryBackground width={kanvasWidth} height={kanvasHeight}/>                
                 {
                     shelves.map(shelf => {
                         const shelfDrawing = <BookShelfDrawing shelf={shelf} y={shelfY} />;

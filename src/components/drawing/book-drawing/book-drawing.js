@@ -77,7 +77,7 @@ export default class BookDrawing extends Component {
                     y={y}
                     ref={ref => (this.labelAuthors = ref)}>
 
-                    <Tag stroke={'sienna'} />
+                    <Tag stroke={'saddlebrown'} strokeWidth={3} fill={'white'} />
 
                     <Text
                         fontSize={this.authorsFontSize(fontSize)}

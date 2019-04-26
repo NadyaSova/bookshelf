@@ -1,9 +1,14 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
+
 import BookPileDrawing from '../book-pile-drawing';
-import { pileMargin } from '../../../helpers/drawing-constants';
+import RackDrawing from '../rack-drawing';
+import { getEvenedPileMargin } from '../../../helpers';
 
 const BookShelfDrawing = ({ shelf, y }) => {
-    var width = pileMargin;
+
+    var evenedPileMargin = getEvenedPileMargin(shelf)
+    var width = evenedPileMargin;
+
     return (
         <Fragment>
             {shelf.map(pile => {
@@ -15,9 +20,10 @@ const BookShelfDrawing = ({ shelf, y }) => {
                         x={width}
                         y={y} />
                 );
-                width += (pile.width + pileMargin)
+                width += (pile.width + evenedPileMargin)
                 return pileDrawing;
             })}
+            <RackDrawing  y={y}/>
         </Fragment>
     );
 }
