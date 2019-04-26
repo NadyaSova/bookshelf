@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import VerticalBookPileDrawing from './vertical-book-pile-drawing';
-import HorizontalBookPileDrawing from './horizontal-book-pile-drawing';
+import { VerticalBookPileDrawing, HorizontalBookPileDrawing } from '.';
 import { Text } from 'react-konva';
 
 export default class BookPileDrawing extends Component {
@@ -13,7 +12,7 @@ export default class BookPileDrawing extends Component {
         return (
             <Fragment>
                 {vertical && <VerticalBookPileDrawing {...this.props} />}
-                {!vertical && <HorizontalBookPileDrawing {...this.props} /> }
+                {!vertical && <HorizontalBookPileDrawing {...this.props} />}
             </Fragment>
         );
     }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, Label, Tag } from 'react-konva';
 import Konva from 'konva';
 
-import { maxFontSize, minFontSize } from '../../../helpers/drawing-constants';
+import { maxFontSize, minFontSize } from '../../utils/drawing/drawing-constants';
 
 const padding = 3;
 const basicTestSettings = {

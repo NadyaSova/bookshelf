@@ -1,8 +1,8 @@
 import React from 'react'
 import { Rect } from 'react-konva';
 
-import { pileMargin, rackHeight } from '../../helpers/drawing-constants';
-import { getKanvasWidth } from '../../helpers';
+import { pileMargin, rackHeight } from '../../utils/drawing/drawing-constants';
+import { getKanvasWidth } from '../../utils/drawing';
 
 const RackDrawing = ({y}) => {
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import BookDrawing from '../book-drawing';
+import { BookDrawing } from '.';
 
 const HorizontalBookPileDrawing = ({ books, x, y }) => {
     const maxHeight = Math.max(...books.map(book => book.height));

@@ -1,4 +1,4 @@
-import { shelfHeight, rackHeight, libraryVerticalPadding } from '../helpers/drawing-constants';
+import { shelfHeight, rackHeight, libraryVerticalPadding } from './drawing-constants';
 
 function getKanvasSize(shelvesCount) {
     return { width: getKanvasWidth(), height: getKanvasHeight(shelvesCount) };

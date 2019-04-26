@@ -1,5 +1,5 @@
 import React from 'react';
-import BookDrawing from '../book-drawing';
+import { BookDrawing } from '.';
 
 const VerticalBookPileDrawing = ({ books, x, y }) => {
     var bookX = x;
