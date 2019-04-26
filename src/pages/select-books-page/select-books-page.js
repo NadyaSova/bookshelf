@@ -13,11 +13,11 @@ export default class SelectBooksPage extends Component {
         return (
             <ErrorBoundary>
                 <div className="row book-search-row">
-                    <div className='col-sm-6 col-lg-4'>
+                    <div className='col-sm-6 col-md-3'>
                         <SearchFilter />
                         <FilteredBooksList />
                     </div>
-                    <div className='col-sm-6 col-lg-4'>
+                    <div className='col-sm-6 col-md-9'>
                         <SelectedBooks />
                     </div>
                 </div>

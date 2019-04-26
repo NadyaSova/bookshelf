@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { removeBookFromShelf } from '../../actions';
-import { BooksList } from '../books-list'
+import { SelectedBooksList } from '../books-list'
 
 import './selected-books.css'
 
@@ -16,7 +16,7 @@ class SelectedBooks extends React.Component {
         return (
             <div className='selected-books jumbotron'>
                 <h5 className='selected-books-header'>Selected books</h5>
-                <BooksList
+                <SelectedBooksList
                     books={selectedBooks}
                     onRemove={removeBookFromShelf} />
 
