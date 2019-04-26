@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, Label, Tag } from 'react-konva';
+import { Text, Rect } from 'react-konva';
 import Konva from 'konva';
 
 import { maxFontSize, minFontSize } from '../../utils/drawing/drawing-constants';
@@ -20,8 +20,9 @@ export default class BookDrawing extends Component {
     componentDidMount() {
         const { vertical } = this.props;
         if (vertical) {
-            this.labelAuthors.rotate(-90);
-            this.labelTitle.rotate(-90);
+            this.textAuthors.rotate(-90);
+            this.textTitle.rotate(-90);
+            this.rectBook.rotate(-90);
         }
     }
 
@@ -55,52 +56,62 @@ export default class BookDrawing extends Component {
 
         const titleElementHeight = titleElement.height();
         const authorsElementHeight = authorsElement.height();
-        const elementHeight = titleElementHeight + authorsElementHeight;
+        const textHeight = titleElementHeight + authorsElementHeight;
 
-        if (elementHeight <= bookWidth)
-            return { fontSize, authorsElementHeight };
+        if (textHeight <= bookWidth)
+            return { fontSize, authorsElementHeight, textHeight };
 
         return this.adjustFontSize(fontSize - 1);
     }
 
     render() {
-        const { fontSize, authorsElementHeight } = this.adjustFontSize(maxFontSize);
         const { title, authors, x, y, width: bookWidth, height: bookHeight, vertical } = this.props;
 
-        const yTitle = vertical ? y : y + authorsElementHeight;
-        const xTitle = vertical ? x + authorsElementHeight : x;
+        const { fontSize, authorsElementHeight, textHeight } = this.adjustFontSize(maxFontSize);
+
+        const textMargin = (bookWidth - textHeight) / 2;
+        const xAuthors = vertical ? x + textMargin : x;
+        const yAuthors = vertical ? y : y + textMargin;
+
+        const xTitle = vertical ? xAuthors + authorsElementHeight : xAuthors;
+        const yTitle = vertical ? yAuthors : yAuthors + authorsElementHeight;
 
         return (
             <React.Fragment>
 
-                <Label x={x}
+                <Rect
+                    x={x}
                     y={y}
-                    ref={ref => (this.labelAuthors = ref)}>
+                    height={bookWidth}
+                    width={bookHeight}
+                    ref={ref => (this.rectBook = ref)}
+                    fill='white'
+                    stroke='saddlebrown'
+                    strokeWidth={3}
+                />
 
-                    <Tag stroke={'saddlebrown'} strokeWidth={3} fill={'white'} />
+                <Text
+                    x={xAuthors}
+                    y={yAuthors}
+                    ref={ref => (this.textAuthors = ref)}
+                    fontSize={this.authorsFontSize(fontSize)}
+                    text={authors}
+                    height={bookWidth}
+                    width={bookHeight}
+                    {...authorsTextSettings}
+                />
 
-                    <Text
-                        fontSize={this.authorsFontSize(fontSize)}
-                        text={authors}
-                        height={bookWidth}
-                        width={bookHeight}
-                        {...authorsTextSettings}
-                    />
-                </Label>
-
-                <Label x={xTitle}
+                <Text
+                    x={xTitle}
                     y={yTitle}
-                    ref={ref => (this.labelTitle = ref)}>
+                    ref={ref => (this.textTitle = ref)}
+                    fontSize={fontSize}
+                    text={title}
+                    height={bookWidth - authorsElementHeight}
+                    width={bookHeight}
+                    {...titleTextSettings}
+                />
 
-                    <Text
-                        fontSize={fontSize}
-                        text={title}
-                        height={bookWidth - authorsElementHeight}
-                        width={bookHeight}
-                        {...titleTextSettings}
-                    />
-                </Label>
-                
             </React.Fragment>
         );
     }
