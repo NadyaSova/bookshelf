@@ -15,16 +15,18 @@ class SelectedBooks extends React.Component {
 
         return (
             <div className='selected-books jumbotron'>
-                <h5 className='selected-books-header'>Selected books</h5>
+                <div className='generate-link'>
+                    <Link to='/bookshelf' role='button' className='btn btn-link mb-1'>
+                        <i className="fas fa-stream mr-1"></i>
+                        Generate bookshelf
+                        <i className="fas fa-angle-double-right ml-1"></i>
+                    </Link>
+                </div>
+
                 <SelectedBooksList
                     books={selectedBooks}
                     onRemove={removeBookFromShelf} />
 
-                <div className='generate-link'>
-                    <Link to='/bookshelf' role='button' className='btn btn-primary'>
-                        Generate bookshelf
-                    </Link>
-                </div>
             </div>
         );
     }
