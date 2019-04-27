@@ -10,7 +10,7 @@ export default class Book extends Component {
     }
 
     render() {
-        const { book, onRemove } = this.props;
+        const { book } = this.props;
         const authors = !book.authors ? "" : book.authors.reduce((acc, cur) => acc + ", " + cur);
         const pageCount = book.pageCount ? book.pageCount : '';
         return (
@@ -43,13 +43,6 @@ export default class Book extends Component {
                                 </li>
                             </ul>
                         </div>
-                        {
-                            onRemove &&
-                            (<div>
-                                <button type="button" className='close'
-                                    onClick={onRemove}>×</button>
-                            </div>)
-                        }
                     </div>
                 </div>
             </ErrorBoundary>

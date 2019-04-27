@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { withBookService } from '../hoc';
-import { booksFiltered, booksLoadingStart } from '../../actions';
+import { fetchBooks } from '../../actions';
 import { compose } from '../../utils';
 
 import './search-filter.css';
@@ -20,51 +20,45 @@ class SearchFilter extends Component {
 
     onSearch = () => {
         const { term } = this.state;
-        const { bookService } = this.props;
-
-        if (!term) {
-            this.props.booksFiltered([]);
-            return;
-        }
-
-        this.props.booksLoadingStart();
-        bookService.getBooks(term).then((r) => {
-            console.log(r);
-            this.props.booksFiltered(r);
-        });
+        const { fetchBooks } = this.props;
+        fetchBooks(term);
     }
 
     render() {
         const { term } = this.state;
 
         return (
-            <div className='search-filter input-group'>
-                <input type='text' placeholder='book title' className='form-control'
-                    value={term}
-                    onChange={this.onChange}>
-                </input>
-                <div className='input-group-append'>
-                    <button
-                        type='button' className='btn btn-info'
-                        onClick={this.onSearch}>
-                        Search
+            <div className='row mb-3'>
+                <div className='search-filter input-group col-xs-12 col-sm-8 col-md-6 col-lg-5'>
+                    <input type='text' placeholder='book title' className='form-control'
+                        value={term}
+                        onChange={this.onChange}>
+                    </input>
+                    <div className='input-group-append'>
+                        <button
+                            type='button' className='btn btn-info'
+                            onClick={this.onSearch}>
+                            Search
                     </button>
+                    </div>
+                </div>
+                <div className='col-xs-12 col-sm-4 col-md-6 col-lg-7 align-self-center'><em>
+                    Search for books, click on the book to add it to your library</em>
                 </div>
             </div>
         );
     }
 }
 
-// const mapStateToProps = ({ isLoadingBooks }) => {
-//     return {
-//         isLoadingBooks: isLoadingBooks
-//     };
+// const mapStateToProps = ({ error }) => {
+//     return { error };
 // }
 
-const mapDispatchToProps = {
-    booksFiltered,
-    booksLoadingStart    
-};
+const mapDispatchToProps = (dispatch, { bookService }) => {
+    return {
+        fetchBooks: fetchBooks(bookService, dispatch)
+    }
+}
 
 export default compose(
     withBookService(),

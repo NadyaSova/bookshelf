@@ -1,12 +1,19 @@
+const booksLoadingStart = () => {
+    return { type: 'FETCH_BOOKS_REQUEST' };
+}
+
 const booksFiltered = (filteredBooks) => {
     return {
-        type: 'BOOKS_FILTERED',
+        type: 'FETCH_BOOKS_SUCCESS',
         payload: filteredBooks
     };
 }
 
-const booksLoadingStart = () => {
-    return { type: 'BOOKS_LOADING_START' };
+const booksLoadingError = (error) => {
+    return {
+        type: 'FETCH_BOOKS_FAILURE',
+        payload: error
+    }
 }
 
 const addBookToShelf = (book) => {
@@ -23,10 +30,21 @@ const removeBookFromShelf = (book) => {
     }
 }
 
+const fetchBooks = (bookService, dispatch) => (term) => {
+    if (!term) {
+        dispatch(booksFiltered([]));
+        return;
+    }
+
+    dispatch(booksLoadingStart());
+    bookService.getBooks(term)
+        .then((data) => dispatch(booksFiltered(data)))
+        .catch((err) => dispatch(booksLoadingError(err)));
+
+};
 
 export {
-    booksFiltered,
-    booksLoadingStart,
+    fetchBooks,
     addBookToShelf,
     removeBookFromShelf
 };

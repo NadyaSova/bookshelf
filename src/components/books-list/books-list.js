@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Book from '../book';
 import ErrorBoundary from '../error-boundary';
+import SelectedBook from '../selected-book';
 
 export default class BooksList extends Component {
     render() {
@@ -10,7 +11,7 @@ export default class BooksList extends Component {
 
         const booksList = books.map((book) => {
             return (
-                <Book
+                <SelectedBook
                     book={book}
                     key={book.id}
                     onBookSelected={onBookSelected}

@@ -4,31 +4,28 @@ import { connect } from 'react-redux';
 import { addBookToShelf } from '../../actions';
 import BooksList from './books-list';
 import LoadingSpinner from '../loading-spinner';
+import ErrorIndicator from '../error-indicator';
 
-class FilteredBooksList extends Component {
-
+class FilteredBooksListContainer extends Component {
     render() {
-        const { filteredBooks, isLoadingBooks, addBookToShelf } = this.props;
+        const { filteredBooks, isLoadingBooks, addBookToShelf, loadingBooksError } = this.props;
 
         if (isLoadingBooks)
             return <LoadingSpinner />;
 
-        return <BooksList
-            books={filteredBooks}
-            onBookSelected={addBookToShelf}
-        />
+        if (loadingBooksError)
+            return <ErrorIndicator />
+
+        return <BooksList books={filteredBooks} onBookSelected={addBookToShelf} />
     }
 }
 
-const mapStateToProps = ({ filteredBooks, isLoadingBooks }) => {
-    return {
-        filteredBooks: filteredBooks,
-        isLoadingBooks: isLoadingBooks
-    }
+const mapStateToProps = ({ filteredBooks, isLoadingBooks, loadingBooksError }) => {
+    return { filteredBooks, isLoadingBooks, loadingBooksError };
 }
 
 const mapDispatchToProps = {
     addBookToShelf
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilteredBooksList);
+export default connect(mapStateToProps, mapDispatchToProps)(FilteredBooksListContainer);

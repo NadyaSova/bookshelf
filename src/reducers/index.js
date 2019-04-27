@@ -4,24 +4,34 @@ const service = new DummyBookService();
 
 const initialState = {
     filteredBooks: [],
-    selectedBooks: service._books,
-    isLoadingBooks: false
+    selectedBooks: [], //service._books,
+    isLoadingBooks: false,
+    loadingBooksError: null
 };
 
 const reducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case 'BOOKS_FILTERED':
+        case 'FETCH_BOOKS_SUCCESS':
             return {
                 ...state,
                 filteredBooks: action.payload,
-                isLoadingBooks: false
+                isLoadingBooks: false,
+                loadingBooksError: null
             }
-        case 'BOOKS_LOADING_START':
+        case 'FETCH_BOOKS_REQUEST':
             return {
                 ...state,
-                isLoadingBooks: true
+                isLoadingBooks: true,
+                loadingBooksError: null
             };
+        case 'FETCH_BOOKS_FAILURE':
+            return {
+                ...state,
+                filteredBooks: [],
+                isLoadingBooks: false,
+                loadingBooksError: action.payload
+            }
         case 'ADD_BOOK_TO_SHELF':
             const bookToAdd = action.payload;
 
@@ -30,19 +40,19 @@ const reducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                selectedBooks: [...state.selectedBooks, bookToAdd]
+                selectedBooks: [bookToAdd, ...state.selectedBooks]
             };
         case 'REMOVE_BOOK_FROM_SHELF':
             const bookToRemove = action.payload;
             const selectedBooks = state.selectedBooks;
 
-            const idxBookToRemove = selectedBooks.indexOf(bookToRemove);
-            if (idxBookToRemove < 0)
+            const idx = selectedBooks.indexOf(bookToRemove);
+            if (idx = 0)
                 return state;
 
             const books = [
-                ...selectedBooks.slice(0, idxBookToRemove),
-                ...selectedBooks.slice(idxBookToRemove + 1)
+                ...selectedBooks.slice(0, idx),
+                ...selectedBooks.slice(idx, 1)
             ];
             return {
                 ...state,
