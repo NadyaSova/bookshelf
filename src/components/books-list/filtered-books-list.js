@@ -8,20 +8,20 @@ import ErrorIndicator from '../error-indicator';
 
 class FilteredBooksListContainer extends Component {
     render() {
-        const { filteredBooks, isLoadingBooks, addBookToShelf, loadingBooksError } = this.props;
+        const { books, loading, addBookToShelf, error } = this.props;
 
-        if (isLoadingBooks)
+        if (loading)
             return <LoadingSpinner />;
 
-        if (loadingBooksError)
+        if (error)
             return <ErrorIndicator />
 
-        return <BooksList books={filteredBooks} onBookSelected={addBookToShelf} />
+        return <BooksList books={books} onBookSelected={addBookToShelf} />
     }
 }
 
-const mapStateToProps = ({ filteredBooks, isLoadingBooks, loadingBooksError }) => {
-    return { filteredBooks, isLoadingBooks, loadingBooksError };
+const mapStateToProps = ({bookFilter: { books, loading, error }}) => {
+    return { books, loading, error };
 }
 
 const mapDispatchToProps = {
