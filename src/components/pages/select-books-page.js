@@ -5,9 +5,6 @@ import SearchFilter from '../../components/search-filter';
 import { FilteredBooksListContainer } from '../../components/books-list';
 import SelectedBooks from '../../components/selected-books/selected-books';
 
-import './select-books-page.css'
-
-
 export default class SelectBooksPage extends Component {
     render() {
         return (

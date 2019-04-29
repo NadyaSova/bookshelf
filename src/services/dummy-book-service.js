@@ -1,5 +1,4 @@
 export default class DummyBookService {
-
     _books = [
         {
             "id": "PZE9RP_rbekC",
@@ -249,15 +248,9 @@ export default class DummyBookService {
             "publishedDate": "2009-11-09",
             "img": "http://books.google.com/books/content?id=7kfyzf2BnP0C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
         }
-
-
     ]
 
     getBooks = async () => {
         return this._books;
-    }
-
-    getBook = async () => {
-        return this._books[0];
     }
 }

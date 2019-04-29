@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 
 import BookLibraryDrawing from '../../components/drawing/book-library-drawing';
 
-import './bookshelf-page.css';
-
 class BookshelfPage extends Component {
 
     update = () => {

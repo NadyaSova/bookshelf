@@ -1,13 +1,11 @@
-import DummyBookService from '../services/dummy-book-service';
-const service = new DummyBookService();
-
 const initialBookFilterState = {
-    books: [],  //service._books,
+    books: [],
     loading: false,
     error: null
-};
+}
 
 const updateBookFilter = (state, action) => {
+    console.log('action type', action.type, 'current state', state);
     if (state === undefined)
         return initialBookFilterState;
 

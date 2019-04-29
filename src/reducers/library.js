@@ -1,6 +1,9 @@
+import DummyBookService from '../services/dummy-book-service';
+const service = new DummyBookService();
+
 const updateLibrary = (state, action) => {
     if (state === undefined)
-        return [];
+        return service._books;
 
     switch (action.type) {
         case 'ADD_BOOK_TO_SHELF':
@@ -18,11 +21,10 @@ const updateLibrary = (state, action) => {
             if (idx < 0)
                 return state.selectedBooks;
 
-            const books = [
+            return [
                 ...selectedBooks.slice(0, idx),
                 ...selectedBooks.slice(idx + 1)
             ];
-            return books;
         default:
             return state.selectedBooks;
     }

@@ -10,20 +10,16 @@ export default class SelectedBook extends Component {
             onBookSelected(book);
     }
 
-    getBookData = () => {
+    getPublishingInfo = () => {
         const { book } = this.props;
-
-        const authors = book.authors ? book.authors.reduce((acc, cur) => acc + ", " + cur): '';
         const publishingInfo = book.pageCount ? book.pageCount + ' pages' : '';
-
-        return { authors, publishingInfo };
+        return  publishingInfo ;
     }
 
     render() {
         const { book, onRemove, onBookSelected } = this.props;
         const onCardClick = onRemove ? onRemove : onBookSelected ? this.onSelected : null;
-
-        const { authors, publishingInfo } = this.getBookData();
+        const publishingInfo = this.getPublishingInfo();
 
         return (
             <ErrorBoundary>
@@ -35,7 +31,7 @@ export default class SelectedBook extends Component {
 
                         <div className='book-info-container' >
                             <div className='book-title mt-1 mb-1'>{book.title}</div>
-                            <div className='book-authors mb-1'>{authors}</div>
+                            <div className='book-authors mb-1'>{book.authors}</div>
                             <div className='book-info'>{publishingInfo}</div>
                         </div>
                         {

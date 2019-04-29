@@ -16,6 +16,18 @@ const booksLoadingError = (error) => {
     }
 }
 
+const fetchBooks = (bookService, dispatch) => (term) => {
+    if (!term) {
+        dispatch(booksFiltered([]));
+        return;
+    }
+
+    dispatch(booksLoadingStart());
+    bookService.getBooks(term)
+        .then((data) => dispatch(booksFiltered(data)))
+        .catch((err) => dispatch(booksLoadingError(err)));
+}
+
 const addBookToShelf = (book) => {
     return {
         type: 'ADD_BOOK_TO_SHELF',
@@ -30,21 +42,8 @@ const removeBookFromShelf = (book) => {
     }
 }
 
-const fetchBooks = (bookService, dispatch) => (term) => {
-    if (!term) {
-        dispatch(booksFiltered([]));
-        return;
-    }
-
-    dispatch(booksLoadingStart());
-    bookService.getBooks(term)
-        .then((data) => dispatch(booksFiltered(data)))
-        .catch((err) => dispatch(booksLoadingError(err)));
-
-};
-
 export {
     fetchBooks,
     addBookToShelf,
     removeBookFromShelf
-};
+}

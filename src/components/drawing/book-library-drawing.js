@@ -3,18 +3,18 @@ import { Stage, Layer } from 'react-konva';
 
 import { BookShelfDrawing, BookLibraryBackground } from '.';
 import { pileMargin, shelfHeight, maxBookHeight, libraryVerticalPadding } from '../../utils/drawing/drawing-constants';
-import { bookSizesGenerator, pilesGenerator, getKanvasHeight, getKanvasWidth } from '../../utils/drawing';
+import { populateBookSizes, generateShelves, getKanvasHeight, getKanvasWidth } from '../../utils/drawing';
 
 const BookLibraryDrawing = ({ books }) => {
     if (!books || books.length === 0) {
         return null;
     }
 
-    const booksWithSizes = bookSizesGenerator(books);
+    const booksWithSizes = populateBookSizes(books);
 
     const kanvasWidth = getKanvasWidth();
     const maxWidth = kanvasWidth - pileMargin;
-    const shelves = pilesGenerator(booksWithSizes, maxWidth);
+    const shelves = generateShelves(booksWithSizes, maxWidth);
 
     const kanvasHeight = getKanvasHeight(shelves.length);
 
@@ -24,8 +24,8 @@ const BookLibraryDrawing = ({ books }) => {
             <Layer>
                 <BookLibraryBackground width={kanvasWidth} height={kanvasHeight} />
                 {
-                    shelves.map(shelf => {
-                        const shelfDrawing = <BookShelfDrawing shelf={shelf} y={shelfY} />;
+                    shelves.map((shelf, idx) => {
+                        const shelfDrawing = <BookShelfDrawing key={idx} shelf={shelf} y={shelfY} />;
                         shelfY += shelfHeight;
                         return shelfDrawing;
                     })

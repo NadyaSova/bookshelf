@@ -4,7 +4,7 @@ const maxHeight = 200;
 const minBooksInVerticalPile = 3;
 const maxBooksInVerticalPile = 6;
 
-function pilesGenerator(books, maxWidth) {
+function generateShelves(books, maxWidth) {
 
     var booksCount = 0;
     var shelves = [];
@@ -80,4 +80,4 @@ function HorizontalPileGenerator(books, maxPileWidth) {
     return { books: booksInPile, width: pileWidth, vertical: false };
 }
 
-export default pilesGenerator;
+export default generateShelves;

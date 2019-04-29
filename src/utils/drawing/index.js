@@ -1,10 +1,11 @@
-import bookSizesGenerator from './book-sizes-generator';
-import pilesGenerator from './piles-generator';
-import { getKanvasHeight, getKanvasWidth, getKanvasSize, getEvenedPileMargin } from './drawing-utils'
+import populateBookSizes from './populate-book-sizes';
+import generateShelves from './generate-shelves';
+import { getKanvasHeight, getKanvasWidth, getKanvasSize } from './get-canvas-size'
+import getEvenedPileMargin from './get-evened-pile-margin'
 
 export {
-    bookSizesGenerator,
-    pilesGenerator,
+    populateBookSizes,
+    generateShelves,
     getKanvasHeight,
     getKanvasWidth,
     getKanvasSize,

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import SelectBooksPage from '../../pages/select-books-page';
-import BookshelfPage from '../../pages/bookshelf-page';
+import SelectBooksPage from '../pages/select-books-page';
+import BookshelfPage from '../pages/bookshelf-page';
 
 
 const App = () => {
