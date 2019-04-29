@@ -11,6 +11,12 @@ const maxBookHeight = 250;
 const maxFontSize = 22;
 const minFontSize = 6;
 
+const minBooksInVerticalPile = 3;
+const maxBooksInVerticalPile = 6;
+
+const ratioBookWidthToPageCount = 0.05;
+const maxPageCountForMinWith = 80;
+
 export {
     pileMargin,
     shelfHeight,
@@ -21,5 +27,9 @@ export {
     maxFontSize,
     minFontSize,
     rackHeight,
-    libraryVerticalPadding
+    libraryVerticalPadding,
+    minBooksInVerticalPile,
+    maxBooksInVerticalPile,
+    ratioBookWidthToPageCount,
+    maxPageCountForMinWith
 };

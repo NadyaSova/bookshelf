@@ -6,4 +6,4 @@ function getEvenedPileMargin(piles) {
     return (kanvasWidth - pilesWidth) / (piles.length + 1);
 };
 
-export default getEvenedPileMargin ;
+export default getEvenedPileMargin;

@@ -1,14 +1,18 @@
-import { minBookHeight, maxBookHeight, minBookWidth, maxBookWidth } from './drawing-constants';
+import {
+    minBookHeight,
+    maxBookHeight,
+    minBookWidth,
+    maxBookWidth,
+    ratioBookWidthToPageCount,
+    maxPageCountForMinWith
+} from './drawing-constants';
 
-const ratioWidthToPageCount = 0.05;
-const maxPageCountForMinWith = 80;
 
-
-function populateBookSizes(arrBooks) {
-    if (!arrBooks)
+function populateBookSizes(books) {
+    if (!books)
         return undefined;
 
-    return arrBooks.map((book) => {
+    return books.map((book) => {
         return {
             ...book,
             width: getWidth(book.pageCount),
@@ -19,11 +23,11 @@ function populateBookSizes(arrBooks) {
 
 function getWidth(pageCount) {
     if (!pageCount || pageCount <= maxPageCountForMinWith)
-        return minBookWidth;    
+        return minBookWidth;
 
     return Math.min(
         maxBookWidth,
-        minBookWidth + Math.floor((pageCount - maxPageCountForMinWith) * ratioWidthToPageCount)
+        minBookWidth + Math.floor((pageCount - maxPageCountForMinWith) * ratioBookWidthToPageCount)
     );
 };
 

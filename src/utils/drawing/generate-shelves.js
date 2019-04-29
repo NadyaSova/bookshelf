@@ -1,76 +1,67 @@
-import { pileMargin } from './drawing-constants';
-
-const maxHeight = 200;
-const minBooksInVerticalPile = 3;
-const maxBooksInVerticalPile = 6;
+import { pileMargin, maxBookHeight, minBooksInVerticalPile, maxBooksInVerticalPile } from './drawing-constants';
 
 function generateShelves(books, maxWidth) {
-
-    var booksCount = 0;
-    var shelves = [];
+    let booksCount = 0;
+    const shelves = [];
 
     while (booksCount < books.length) {
-        var shelf = generateShelf(books.slice(booksCount), maxWidth);
+        const shelf = generateShelf(books.slice(booksCount), maxWidth);
         shelves.push(shelf.piles);
         booksCount += shelf.booksCount;
     }
     return shelves;
-}
+};
 
 function generateShelf(books, maxWidth) {
+    const piles = [];
+    let pilesWidth = 0;
+    let booksCount = 0;
+    let vertical = Math.random() > 0.5;
 
-    var width = 0;
-    var booksCount = 0;
-    var piles = [];
-    var vertical = Math.random() > 0.5;
-
-    while (booksCount < books.length && width < maxWidth) {
-        var generatePile = vertical ? VerticalPileGenerator : HorizontalPileGenerator;
-        var pile = generatePile(books.slice(booksCount), maxWidth - width);
+    while (booksCount < books.length && pilesWidth < maxWidth) {
+        let generatePile = vertical ? generateVerticalPile : generateHorizontalPile;
+        let pile = generatePile(books.slice(booksCount), maxWidth - pilesWidth);
 
         if (pile.books.length === 0)
             return { piles, booksCount };
 
         piles.push(pile);
-
         booksCount += pile.books.length;
-        width += (pile.width + pileMargin);
+        pilesWidth += (pile.width + pileMargin);
         vertical = !vertical;
     }
     return { piles, booksCount };
-}
+};
 
-function VerticalPileGenerator(books, maxPileWidth) {
-
+function generateVerticalPile(books, maxPileWidth) {
+    const booksInPile = [];
     const booksInPileCount = Math.min(
         books.length,
         Math.floor(Math.random() * (maxBooksInVerticalPile - minBooksInVerticalPile) + minBooksInVerticalPile)
     );
 
-    var booksInPile = [];
-
-    for (var i = 0, width = 0; i < booksInPileCount; i++) {
+    for (var i = 0, pileWidth = 0; i < booksInPileCount; i++) {
         const book = books[i];
-        if (width + book.width >= maxPileWidth)
+        if (pileWidth + book.width >= maxPileWidth)
             break;
 
-        width += book.width;
+        pileWidth += book.width;
         booksInPile.push(book);
     }
 
-    return { books: booksInPile, width, vertical: true };
-}
+    return { books: booksInPile, width: pileWidth, vertical: true };
+};
 
-function HorizontalPileGenerator(books, maxPileWidth) {
+function generateHorizontalPile(books, maxPileWidth) {
     if (books.length === 0) {
         return { books: [], width: 0, vertical: false };
     }
 
-    var booksInPile = [];
-    var pileWidth = 0;
+    const booksInPile = [];
+    let pileWidth = 0;
 
-    for (var i = 0, height = books[0].width;
-        i < books.length && books[i].height < maxPileWidth && height < maxHeight;
+    for (let i = 0, height = books[0].width;
+        i < books.length && books[i].height < maxPileWidth && height < maxBookHeight;
         i++ , height += (books[i] || {}).width) {
 
         const book = books[i];
@@ -78,6 +69,6 @@ function HorizontalPileGenerator(books, maxPileWidth) {
         booksInPile.push(book);
     }
     return { books: booksInPile, width: pileWidth, vertical: false };
-}
+};
 
 export default generateShelves;
