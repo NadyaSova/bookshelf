@@ -5,7 +5,6 @@ const initialBookFilterState = {
 }
 
 const updateBookFilter = (state, action) => {
-    console.log('action type', action.type, 'current state', state);
     if (state === undefined)
         return initialBookFilterState;
 

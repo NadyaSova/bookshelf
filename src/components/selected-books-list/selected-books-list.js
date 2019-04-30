@@ -6,7 +6,7 @@ import './selected-books-list.css'
 
 export default class SelectedBooksList extends Component {
     render() {
-        const { books, onBookSelected, onRemove } = this.props;
+        const { books, onClick } = this.props;
         if (!books || books.length === 0)
             return <span></span>;
 
@@ -15,8 +15,8 @@ export default class SelectedBooksList extends Component {
                 <SelectedBook
                     book={book}
                     key={book.id}
-                    onBookSelected={onBookSelected}
-                    onRemove={onRemove ? () => onRemove(book) : undefined} />
+                    onClick={onClick}
+                    showClose={true}/>
             );
         });
         return (

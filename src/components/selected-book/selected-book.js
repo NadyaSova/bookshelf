@@ -1,30 +1,17 @@
 import React, { Component } from 'react';
-import './selected-book.css';
 import ErrorBoundary from '../error-boundary'
 
+import './selected-book.css';
+
 export default class SelectedBook extends Component {
-
-    onSelected = () => {
-        const { book, onBookSelected } = this.props;
-        if (onBookSelected)
-            onBookSelected(book);
-    }
-
-    getPublishingInfo = () => {
-        const { book } = this.props;
-        const publishingInfo = book.pageCount ? book.pageCount + ' pages' : '';
-        return  publishingInfo ;
-    }
-
     render() {
-        const { book, onRemove, onBookSelected } = this.props;
-        const onCardClick = onRemove ? onRemove : onBookSelected ? this.onSelected : null;
-        const publishingInfo = this.getPublishingInfo();
+        const { book, onClick, showClose } = this.props;
+        const pages = book.pageCount ? `${book.pageCount} pages` : '';
 
         return (
             <ErrorBoundary>
                 <div className='book card bg-light border-info mb-1'>
-                    <div className='card-body' onClick={onCardClick}>
+                    <div className='card-body' onClick={() => onClick(book)}>
                         <div className='book-image-container' >
                             <img src={book.img} alt="book cover" className='book-image'></img>
                         </div>
@@ -32,14 +19,13 @@ export default class SelectedBook extends Component {
                         <div className='book-info-container' >
                             <div className='book-title mt-1 mb-1'>{book.title}</div>
                             <div className='book-authors mb-1'>{book.authors}</div>
-                            <div className='book-info'>{publishingInfo}</div>
+                            <div className='book-info'>{pages}</div>
                         </div>
                         {
-                            onRemove &&
-                            (<div>
-                                <button type="button" className='close'
-                                    onClick={onRemove}>×</button>
-                            </div>)
+                            showClose &&
+                            <div>
+                                <button type="button" className='close'>×</button>
+                            </div>
                         }
                     </div>
                 </div>

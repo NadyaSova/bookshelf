@@ -16,13 +16,13 @@ class SearchFilter extends Component {
     onChange = (e) => {
         const term = e.target.value;
         this.setState({ term: term })
-    }
+    };
 
     onSearch = () => {
         const { term } = this.state;
         const { fetchBooks } = this.props;
         fetchBooks(term);
-    }
+    };
 
     render() {
         const { term } = this.state;
@@ -48,17 +48,13 @@ class SearchFilter extends Component {
             </div>
         );
     }
-}
-
-// const mapStateToProps = ({ error }) => {
-//     return { error };
-// }
+};
 
 const mapDispatchToProps = (dispatch, { bookService }) => {
     return {
         fetchBooks: fetchBooks(bookService, dispatch)
     }
-}
+};
 
 export default compose(
     withBookService(),

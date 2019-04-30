@@ -1,5 +1,6 @@
-import React from 'react'
-import './loading-spinner.css'
+import React from 'react';
+
+import './loading-spinner.css';
 
 const LoadingSpinner = () => {
     return (
@@ -16,6 +17,6 @@ const LoadingSpinner = () => {
             </div>
         </div>
     );
-}
+};
 
-export default LoadingSpinner
+export default LoadingSpinner;

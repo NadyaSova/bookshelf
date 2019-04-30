@@ -1,27 +1,26 @@
-import React, { Component } from 'react';
-import Book from '../book';
+import React from 'react';
 import ErrorBoundary from '../error-boundary';
 import SelectedBook from '../selected-book';
 
-export default class BooksList extends Component {
-    render() {
-        const { books, onBookSelected, onRemove } = this.props;
-        if (!books || books.length === 0)
-            return <span></span>;
+import './books-list.css'
 
-        const booksList = books.map((book) => {
-            return (
-                <SelectedBook
-                    book={book}
-                    key={book.id}
-                    onBookSelected={onBookSelected}
-                    onRemove={onRemove ? () => onRemove(book) : undefined} />
-            );
-        });
+const BooksList = ({ books, onClick }) => {
+    if (!books || books.length === 0)
+        return <span></span>;
+
+    const booksList = books.map((book) => {
         return (
-            <ErrorBoundary>
-                {booksList}
-            </ErrorBoundary>
+            <SelectedBook
+                key={book.id}
+                book={book}
+                onClick={onClick} />
         );
-    }
-}
+    });
+    return (
+        <ErrorBoundary>
+            {booksList}
+        </ErrorBoundary>
+    );
+};
+
+export default BooksList;

@@ -1,2 +1,3 @@
-import LoadingSpinner from './loading-spinner'
-export default LoadingSpinner
+import LoadingSpinner from './loading-spinner';
+
+export default LoadingSpinner;

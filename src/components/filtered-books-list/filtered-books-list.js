@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { addBookToShelf } from '../../actions';
-import BooksList from './books-list';
+import BooksList from '../books-list/books-list';
 import LoadingSpinner from '../loading-spinner';
 import ErrorIndicator from '../error-indicator';
 
-class FilteredBooksListContainer extends Component {
+import './filtered-books-list.css'
+
+class FilteredBooksList extends Component {
     render() {
-        const { books, loading, addBookToShelf, error } = this.props;
+        const { books, addBookToShelf, loading, error } = this.props;
 
         if (loading)
             return <LoadingSpinner />;
@@ -16,7 +18,7 @@ class FilteredBooksListContainer extends Component {
         if (error)
             return <ErrorIndicator />
 
-        return <BooksList books={books} onBookSelected={addBookToShelf} />
+        return <BooksList books={books} onClick={addBookToShelf} />
     }
 }
 
@@ -28,4 +30,4 @@ const mapDispatchToProps = {
     addBookToShelf
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilteredBooksListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FilteredBooksList);

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { removeBookFromShelf } from '../../actions';
-import { SelectedBooksList } from '../books-list'
+import SelectedBooksList from '../selected-books-list'
 
 import './selected-books.css'
 
@@ -25,7 +25,7 @@ class SelectedBooks extends React.Component {
 
                 <SelectedBooksList
                     books={selectedBooks}
-                    onRemove={removeBookFromShelf} />
+                    onClick={removeBookFromShelf} />
 
             </div>
         );

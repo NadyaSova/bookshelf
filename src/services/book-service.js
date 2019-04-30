@@ -14,12 +14,11 @@ export default class BookService {
         if (!vi.imageLinks)
             vi.imageLinks = {};
 
-        if (!vi.authors)
-            vi.authors = [];
+        const authors = vi.authors ? vi.authors.reduce((prev, cur) => { return prev + ', ' + cur }) : '';
 
         return {
             id: item.id,
-            authors: vi.authors.reduce((prev, cur) => { return prev + ', ' + cur }),
+            authors,
             title: vi.title,
             pageCount: vi.pageCount,
             img: vi.imageLinks.thumbnail

@@ -1,2 +1,3 @@
-import SelectedBooks from './selected-books'
-export default SelectedBooks
+import SelectedBooks from './selected-books';
+
+export default SelectedBooks;

@@ -3,7 +3,7 @@ const service = new DummyBookService();
 
 const updateLibrary = (state, action) => {
     if (state === undefined)
-        return service._books;
+        return [];//service._books;
 
     switch (action.type) {
         case 'ADD_BOOK_TO_SHELF':
