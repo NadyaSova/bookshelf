@@ -12,10 +12,10 @@ const SelectBooksPage = () => {
                 <h2 className='mb-3'>Library</h2>
                 <SearchFilter />
                 <div className='row'>
-                    <div className='col-sm-6 col-md-3'>
+                    <div className='col-sm-6 col-md-4'>
                         <FilteredBooksList />
                     </div>
-                    <div className='col-sm-6 col-md-9'>
+                    <div className='col-sm-6 col-md-8'>
                         <SelectedBooks />
                     </div>
                 </div>

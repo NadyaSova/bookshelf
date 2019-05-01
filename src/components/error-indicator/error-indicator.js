@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import './error-indicator.css'
 
-const ErrorIndicator = () => {
-    return (
-        <div className="alert alert-danger alert-dismissible">
-            <button className="close" type="button" data-dismiss="alert">×</button>
-            Oops. Something went wrong.
-        </div>
-    );
-}
+export default class ErrorIndicator extends Component {
+    state = { isActive: true };
 
-export default ErrorIndicator;
+    hide = () => {
+        this.setState({ isActive: false });
+    };
+
+    render() {
+        if (!this.state.isActive)
+            return null;
+
+        return (
+            <div className="alert alert-danger alert-dismissible">
+                <button className="close" type="button" data-dismiss="alert" onClick={this.hide}>×</button>
+                Oops. Something went wrong.
+            </div>
+        );
+    }
+}
