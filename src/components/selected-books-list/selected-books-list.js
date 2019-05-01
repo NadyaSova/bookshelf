@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SelectedBook from '../selected-book';
+import Book from '../book';
 import ErrorBoundary from '../error-boundary';
 
 import './selected-books-list.css'
@@ -12,7 +12,7 @@ export default class SelectedBooksList extends Component {
 
         const booksList = books.map((book) => {
             return (
-                <SelectedBook
+                <Book
                     book={book}
                     key={book.id}
                     onClick={onClick}

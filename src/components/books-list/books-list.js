@@ -1,6 +1,6 @@
 import React from 'react';
 import ErrorBoundary from '../error-boundary';
-import SelectedBook from '../selected-book';
+import Book from '../book';
 
 import './books-list.css'
 
@@ -10,7 +10,7 @@ const BooksList = ({ books, onClick }) => {
 
     const booksList = books.map((book) => {
         return (
-            <SelectedBook
+            <Book
                 key={book.id}
                 book={book}
                 onClick={onClick} />

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ErrorBoundary from '../error-boundary'
 
-import './selected-book.css';
+import './book.css';
 
-export default class SelectedBook extends Component {
+export default class Book extends Component {
     render() {
         const { book, onClick, showClose } = this.props;
         const pages = book.pageCount ? `${book.pageCount} pages` : '';
