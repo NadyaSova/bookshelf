@@ -26,15 +26,12 @@ export default class BookDrawing extends Component {
         }
     }
 
-    authorsFontSize(titleFontSize) {
+    getAuthorsFontSize(titleFontSize) {
         const fontSize = titleFontSize - 4;
         return Math.max(fontSize, minFontSize);
     }
 
     adjustFontSize(fontSize) {
-        if (fontSize < minFontSize)
-            return fontSize;
-
         const { title, authors, width: bookWidth, height: bookHeight } = this.props;
 
         const titleElement = new Konva.Text(
@@ -48,7 +45,7 @@ export default class BookDrawing extends Component {
         const authorsElement = new Konva.Text(
             {
                 text: authors,
-                fontSize: this.authorsFontSize(fontSize),
+                fontSize: this.getAuthorsFontSize(fontSize),
                 width: bookHeight,
                 ...authorsTextSettings
             }
@@ -58,7 +55,7 @@ export default class BookDrawing extends Component {
         const authorsElementHeight = authorsElement.height();
         const textHeight = titleElementHeight + authorsElementHeight;
 
-        if (textHeight <= bookWidth)
+        if (fontSize === minFontSize || textHeight <= bookWidth)
             return { fontSize, authorsElementHeight, textHeight };
 
         return this.adjustFontSize(fontSize - 1);
@@ -94,7 +91,7 @@ export default class BookDrawing extends Component {
                     x={xAuthors}
                     y={yAuthors}
                     ref={ref => (this.textAuthors = ref)}
-                    fontSize={this.authorsFontSize(fontSize)}
+                    fontSize={this.getAuthorsFontSize(fontSize)}
                     text={authors}
                     height={bookWidth}
                     width={bookHeight}

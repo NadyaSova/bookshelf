@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stage, Layer } from 'react-konva';
 
-import { BookShelfDrawing, BookLibraryBackground } from '.';
+import { BookshelfDrawing, BookLibraryBackground } from '.';
 import { pileMargin, shelfHeight, maxBookHeight, libraryVerticalPadding } from '../../utils/drawing/drawing-constants';
 import { populateBookSizes, generateShelves, getKanvasHeight, getKanvasWidth } from '../../utils/drawing';
 
@@ -10,29 +10,32 @@ const BookLibraryDrawing = ({ books }) => {
         return null;
     }
 
-    const booksWithSizes = populateBookSizes(books);
+    const { kanvasWidth, kanvasHeight, shelves } = getLibraryParams(books);
+    const startY = maxBookHeight + libraryVerticalPadding;
 
-    const kanvasWidth = getKanvasWidth();
-    const maxWidth = kanvasWidth - pileMargin;
-    const shelves = generateShelves(booksWithSizes, maxWidth);
-
-    const kanvasHeight = getKanvasHeight(shelves.length);
-
-    var shelfY = maxBookHeight + libraryVerticalPadding;
     return (
         <Stage width={kanvasWidth} height={kanvasHeight}>
             <Layer>
                 <BookLibraryBackground width={kanvasWidth} height={kanvasHeight} />
                 {
-                    shelves.map((shelf, idx) => {
-                        const shelfDrawing = <BookShelfDrawing key={idx} shelf={shelf} y={shelfY} />;
-                        shelfY += shelfHeight;
-                        return shelfDrawing;
-                    })
+                    shelves.map((shelf, idx) =>
+                        <BookshelfDrawing key={idx} shelf={shelf} y={startY + idx * shelfHeight} />
+                    )
                 }
             </Layer>
         </Stage>
     );
+}
+
+const getLibraryParams = (books) => {
+    const booksWithSizes = populateBookSizes(books);
+
+    const kanvasWidth = getKanvasWidth();
+    const maxShelfWidth = kanvasWidth - pileMargin;
+    const shelves = generateShelves(booksWithSizes, maxShelfWidth);
+    const kanvasHeight = getKanvasHeight(shelves.length);
+
+    return { kanvasWidth, kanvasHeight, shelves };
 }
 
 export default BookLibraryDrawing;

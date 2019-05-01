@@ -1,19 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
+
 import { VerticalBookPileDrawing, HorizontalBookPileDrawing } from '.';
-import { Text } from 'react-konva';
 
-export default class BookPileDrawing extends Component {
-    render() {
-        const { books, vertical } = this.props;
-        if (!books || books.length === 0) {
-            return (<Text></Text>);
-        }
+const BookPileDrawing = (props) => {
+    const { books, vertical } = props;
+    
+    if (!books || books.length === 0)
+        return null;
 
-        return (
-            <Fragment>
-                {vertical && <VerticalBookPileDrawing {...this.props} />}
-                {!vertical && <HorizontalBookPileDrawing {...this.props} />}
-            </Fragment>
-        );
-    }
+    if (vertical)
+        return <VerticalBookPileDrawing {...props} />;
+    else
+        return <HorizontalBookPileDrawing {...props} />;
 }
+
+export default BookPileDrawing;

@@ -5,7 +5,6 @@ import { pileMargin, rackHeight } from '../../utils/drawing/drawing-constants';
 import { getKanvasWidth } from '../../utils/drawing';
 
 const RackDrawing = ({y}) => {
-
     const kanvasWidth = getKanvasWidth();
 
     return (

@@ -3,10 +3,9 @@ import React, { Fragment } from 'react';
 import { BookPileDrawing, RackDrawing } from '.';
 import { getEvenedPileMargin } from '../../utils/drawing';
 
-const BookShelfDrawing = ({ shelf, y }) => {
-
-    var evenedPileMargin = getEvenedPileMargin(shelf)
-    var width = evenedPileMargin;
+const BookshelfDrawing = ({ shelf, y }) => {
+    const evenedPileMargin = getEvenedPileMargin(shelf)    
+    var x = evenedPileMargin;
 
     return (
         <Fragment>
@@ -16,10 +15,10 @@ const BookShelfDrawing = ({ shelf, y }) => {
                         key={pile.books[0].id}
                         books={pile.books}
                         vertical={pile.vertical}
-                        x={width}
+                        x={x}
                         y={y} />
                 );
-                width += (pile.width + evenedPileMargin)
+                x += (pile.width + evenedPileMargin)
                 return pileDrawing;
             })}
             <RackDrawing y={y} />
@@ -27,4 +26,4 @@ const BookShelfDrawing = ({ shelf, y }) => {
     );
 }
 
-export default BookShelfDrawing;
+export default BookshelfDrawing;

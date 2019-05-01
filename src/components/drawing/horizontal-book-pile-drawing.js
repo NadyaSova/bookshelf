@@ -8,15 +8,16 @@ const HorizontalBookPileDrawing = ({ books, x, y }) => {
     const bookDrawings = books.map((book) => {
         const bookX = Math.floor(x + (maxHeight - book.height) / 2);
         bookY -= book.width;
-        return (<BookDrawing
-            key={book.id}
-            title={book.title}
-            authors={book.authors}
-            x={bookX}
-            y={bookY}
-            width={book.width}
-            height={book.height}
-        />);
+        return (
+            <BookDrawing
+                key={book.id}
+                title={book.title}
+                authors={book.authors}
+                x={bookX}
+                y={bookY}
+                width={book.width}
+                height={book.height}
+            />);
     });
     return (
         <React.Fragment>
