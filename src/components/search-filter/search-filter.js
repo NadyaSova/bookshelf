@@ -10,7 +10,7 @@ import './search-filter.css';
 class SearchFilter extends Component {
 
     state = {
-        term: 'abc'
+        term: ''
     };
 
     onChange = (e) => {
