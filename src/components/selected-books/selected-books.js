@@ -2,22 +2,26 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { removeBookFromShelf } from '../../actions';
+import { removeBookFromLibrary, removeAllFromLibrary } from '../../actions';
 import SelectedBooksList from '../selected-books-list'
 
 import './selected-books.css'
 
 class SelectedBooks extends React.Component {
     render() {
-        const { selectedBooks, removeBookFromShelf } = this.props;
+        const { selectedBooks, removeBookFromLibrary, removeAllFromLibrary } = this.props;
         if (!selectedBooks || selectedBooks.length === 0)
             return null;
 
         return (
             <div className='selected-books jumbotron'>
+            
+                <button type="button" className='btn btn-link remove-all'
+                    title="Remove all books from the library"
+                    onClick={removeAllFromLibrary}>×</button>
+
                 <div className='generate-link'>
                     <Link to='/bookshelf' role='button' className='btn btn-link mb-1'>
-                        <i className="fas fa-stream mr-1"></i>
                         Generate bookshelf
                         <i className="fas fa-angle-double-right ml-1"></i>
                     </Link>
@@ -25,7 +29,7 @@ class SelectedBooks extends React.Component {
 
                 <SelectedBooksList
                     books={selectedBooks}
-                    onClick={removeBookFromShelf} />
+                    onClick={removeBookFromLibrary} />
 
             </div>
         );
@@ -39,7 +43,8 @@ const mapStateToProps = ({ selectedBooks }) => {
 }
 
 const mapDispatchToProps = {
-    removeBookFromShelf
+    removeBookFromLibrary,
+    removeAllFromLibrary
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectedBooks);

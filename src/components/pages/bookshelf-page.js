@@ -18,7 +18,7 @@ class BookshelfPage extends Component {
 
                 <Link to='/' className='btn btn-link'>
                     <i className='fas fa-angle-double-left mr-1'></i>
-                    Back to books select
+                    Back to books selection
                 </Link>
                 
                 <h2 className='ml-4'>Bookshelf

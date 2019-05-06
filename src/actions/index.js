@@ -28,22 +28,36 @@ const fetchBooks = (bookService, dispatch) => (term) => {
         .catch((err) => dispatch(booksLoadingError(err)));
 }
 
-const addBookToShelf = (book) => {
+const addBookToLibrary = (book) => {
     return {
-        type: 'ADD_BOOK_TO_SHELF',
+        type: 'ADD_BOOK_TO_LIBRARY',
         payload: book
     }
 }
 
-const removeBookFromShelf = (book) => {
+const removeBookFromLibrary = (book) => {
     return {
-        type: 'REMOVE_BOOK_FROM_SHELF',
+        type: 'REMOVE_BOOK_FROM_LIBRARY',
         payload: book
+    }
+}
+
+const addSampleBooksToLibrary = () => {
+    return {
+        type: 'ADD_SAMPLE_TO_LIBRARY'
+    }
+}
+
+const removeAllFromLibrary = () => {
+    return {
+        type: 'REMOVE_ALL_FROM_LIBRARY'
     }
 }
 
 export {
     fetchBooks,
-    addBookToShelf,
-    removeBookFromShelf
+    addSampleBooksToLibrary,
+    addBookToLibrary,
+    removeBookFromLibrary,
+    removeAllFromLibrary
 }

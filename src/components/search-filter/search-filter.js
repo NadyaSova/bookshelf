@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { withBookService } from '../hoc';
-import { fetchBooks } from '../../actions';
+import { fetchBooks, addSampleBooksToLibrary } from '../../actions';
 import { compose } from '../../utils';
 
 import './search-filter.css';
@@ -18,7 +18,7 @@ class SearchFilter extends Component {
         this.setState({ term: term })
     };
 
-    onSearch = (e) => {        
+    onSearch = (e) => {
         e.preventDefault();
         const { term } = this.state;
         const { fetchBooks } = this.props;
@@ -27,6 +27,7 @@ class SearchFilter extends Component {
 
     render() {
         const { term } = this.state;
+        const { addSampleBooksToLibrary } = this.props;
 
         return (
             <form onSubmit={this.onSearch}>
@@ -42,8 +43,12 @@ class SearchFilter extends Component {
                                 onClick={this.onSearch}>Search</button>
                         </div>
                     </div>
-                    <div className='col-xs-12 col-sm-4 col-md-6 col-lg-7 align-self-center'><em>
-                        Search for books, click on the book to add it to your library</em>
+                    <div className='col-xs-12 col-sm-4 col-md-6 col-lg-7 align-self-center'>
+                        <em>Search for a book and click on it to add it to your library - or</em>
+                        <button type='button' className='btn btn-link ml-1 sample'
+                            onClick={addSampleBooksToLibrary}>
+                            <em>add sample books</em>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -53,7 +58,8 @@ class SearchFilter extends Component {
 
 const mapDispatchToProps = (dispatch, { bookService }) => {
     return {
-        fetchBooks: fetchBooks(bookService, dispatch)
+        fetchBooks: fetchBooks(bookService, dispatch),
+        addSampleBooksToLibrary: () => dispatch(addSampleBooksToLibrary())
     }
 };
 

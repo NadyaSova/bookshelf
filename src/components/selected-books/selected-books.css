@@ -10,3 +10,11 @@
 .generate-link{
     text-align: center;
 }
+
+.selected-books button.remove-all{
+    padding: 0;
+    text-decoration: none;
+    float: right;
+    font-size: 1.8rem;
+    line-height: 1.5rem;
+}

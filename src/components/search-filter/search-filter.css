@@ -1,3 +1,7 @@
 .search-filter .input-group-append .btn {
     height: 38px;
 }
+
+button.sample{
+    padding: 0 0 0.2rem 0;
+}
